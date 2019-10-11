@@ -1,0 +1,8 @@
+{
+  "name": "iceberg",
+  "version": "0.0.1",
+  "description": "An API first CMS leveraging tree structures and graph QL",
+  "main": "index.js",
+  "author": "Leonidas Kyrkos",
+  "license": "MIT"
+}
