@@ -1,8 +1,21 @@
 {
-  "name": "iceberg",
-  "version": "0.0.1",
-  "description": "An API first CMS leveraging tree structures and graph QL",
-  "main": "index.js",
-  "author": "Leonidas Kyrkos",
-  "license": "MIT"
+    "name": "iceberg",
+    "version": "0.0.1",
+    "description": "An API first CMS leveraging tree structures and graph QL",
+    "main": "index.js",
+    "author": "Leonidas Kyrkos",
+    "license": "MIT",
+    "scripts": {
+        "dev": "node server/index.js"
+    },
+    "devDependencies": {
+        "apollo-server-express": "^2.9.6",
+        "body-parser": "^1.19.0",
+        "express": "^4.17.1",
+        "graphql": "^14.5.8",
+        "jsonwebtoken": "^8.5.1"
+    },
+    "dependencies": {
+        "mysql": "^2.17.1"
+    }
 }
