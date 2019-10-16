@@ -5,12 +5,10 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const typeDefs = require("./type_definitions.js");
 const resolvers = require("./resolvers.js");
-const middleware = require("./middleware");
-const HandlerGenerator = require("./modules/handlers.js");
+const setupRoutes = require("./modules/routes.js");
 
 const init = async () => {
     const server = new ApolloServer({ typeDefs, resolvers });
-    const handlers = new HandlerGenerator();
 
     const app = express();
 
@@ -25,9 +23,7 @@ const init = async () => {
 
     app.use(bodyParser.json());
 
-    app.post("/login", handlers.login);
-
-    app.get("/", middleware.checkToken, handlers.index);
+    setupRoutes(app);
 
     app.listen({ port: 4000 }, () =>
         console.log(
