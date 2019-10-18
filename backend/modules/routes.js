@@ -17,34 +17,6 @@ const routes = [
         }
     },
     {
-        path: "/register",
-        method: "post",
-        middleware: null,
-        async handler(req, res) {
-            const { email, password } = req.body;
-
-            if (email && password) {
-                const hash = await bcrypt.hash(password, 10);
-
-                try {
-                    await createNewUser({ email, hash });
-
-                    res.json({
-                        success: true,
-                        message: "User was added successfully"
-                    });
-                } catch (err) {
-                    console.error(err);
-
-                    res.json({
-                        success: false,
-                        message: "Registration failed"
-                    });
-                }
-            }
-        }
-    },
-    {
         path: "/login",
         method: "post",
         middleware: null,

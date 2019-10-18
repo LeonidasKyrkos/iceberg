@@ -8,7 +8,11 @@ const resolvers = require("./resolvers.js");
 const setupRoutes = require("./modules/routes.js");
 
 const init = async () => {
-    const server = new ApolloServer({ typeDefs, resolvers });
+    const server = new ApolloServer({
+        typeDefs,
+        resolvers,
+        engine: { debugPrintReports: true }
+    });
 
     const app = express();
 
