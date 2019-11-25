@@ -1,37 +1,21 @@
 const { query } = require("../../database.js");
+const recursivelyUpdateTree = require("../methods/recursivelyUpdateTree.js");
+
 const GET_CHILDREN = require("../actions/GET_CHILDREN.js");
 const GET_NODES = require("../actions/GET_NODES.js");
 
-// Recursively update node tree by working our way up via each node's parent
-// This seems terrible but I'm rubbish at SQL
-const recursivelyUpdateTree = async (nodeId, parentNodeId, depth = 1) => {
-    await query(
-        `INSERT INTO node_tree (parent, child, depth) VALUES (${parentNodeId}, ${nodeId}, ${depth})`
-    );
-
-    if (parentNodeId > 1) {
-        const parentNode = await GET_NODES({ ids: parentNodeId });
-
-        return await recursivelyUpdateTree(
-            nodeId,
-            parentNode[0].parent_node,
-            depth + 1
-        );
-    }
-};
-
-module.exports = async ({ parent_node, type }) => {
-    if (typeof parent_node === "undefined" || parent_node <= 0) {
+module.exports = async ({ parentNode, type }) => {
+    if (typeof parentNode === "undefined" || parentNode <= 0) {
         throw Error(
-            `Invalid parent node "${parent_node}" provided. Please provide a parent node of ID 1 or greater.`
+            `Invalid parent node "${parentNode}" provided. Please provide a parent node of ID 1 or greater.`
         );
     }
 
-    const children = await GET_CHILDREN({ parent_node });
+    const children = await GET_CHILDREN({ parentNode });
 
     const cols = [
-        { name: "parent_node", value: parent_node },
-        { name: "sort", value: children.length }
+        { name: "parent_node", value: parentNode },
+        { name: "sort", value: children.length },
     ];
 
     if (type) {

@@ -11,7 +11,7 @@ const init = async () => {
     const server = new ApolloServer({
         typeDefs,
         resolvers,
-        engine: { debugPrintReports: true }
+        engine: { debugPrintReports: true },
     });
 
     const app = express();
@@ -21,11 +21,13 @@ const init = async () => {
     app.use(
         bodyParser.urlencoded({
             // Middleware
-            extended: true
+            extended: true,
         })
     );
 
     app.use(bodyParser.json());
+
+    app.use(express.static("frontend/dist"));
 
     setupRoutes(app);
 

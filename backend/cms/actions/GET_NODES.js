@@ -1,6 +1,6 @@
 const { query } = require("../../database.js");
 
-module.exports = ({ ids }) => {
+module.exports = ({ ids } = {}) => {
     if (typeof ids === "number") {
         return query(`SELECT * FROM nodes WHERE id=${ids};`);
     }

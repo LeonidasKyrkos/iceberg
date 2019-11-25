@@ -15,6 +15,8 @@ const typeDefs = gql`
         id: Int
         parent_node: Int
         type: Int
+        title: String
+        shortTitle: String
     }
 
     type NodeInput {
@@ -28,10 +30,13 @@ const typeDefs = gql`
     type Query {
         nodes(ids: [Int]): [Node]
         siblings(id: Int!): [Node]
+        NODE_TREE: String
+        isAncestor(node: Int, child: Int): Boolean
     }
 
     type Mutation {
         CREATE_NODE(parent_node: Int!, type: Int): Node
+        MOVE_NODE(nodeId: Int!, newParentId: Int!): Node
         CREATE_USER(email: String!, password: String!): User
     }
 `;

@@ -1,13 +1,16 @@
 const { query } = require("../../database.js");
 
-module.exports = ({ parent_node }) => {
-    if (typeof parent_node !== "number") {
+/**
+ * Returns the direct descendants of the provided node
+ */
+module.exports = ({ parentNode }) => {
+    if (typeof parentNode !== "number") {
         throw Error(
-            `Invalid parent node provided of type ${typeof parent_node}`
+            `Invalid parent node provided of type ${typeof parentNode}`
         );
     }
 
     return query(
-        `SELECT * FROM nodes WHERE parent_node=${parent_node} ORDER BY sort;`
+        `SELECT * FROM nodes WHERE parent_node=${parentNode} ORDER BY sort;`
     );
 };

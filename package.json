@@ -6,7 +6,7 @@
     "author": "Leonidas Kyrkos",
     "license": "MIT",
     "scripts": {
-        "dev": "node server/index.js"
+        "dev": "node backend/index.js"
     },
     "devDependencies": {
         "apollo-server-express": "^2.9.6",

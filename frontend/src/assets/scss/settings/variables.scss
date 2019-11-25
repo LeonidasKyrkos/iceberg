@@ -1,0 +1,49 @@
+// variables //
+
+// Layout
+
+$navWidth: 250;
+$headerHeight: 60;
+
+// Typography
+// -------------------------
+
+// family
+$ffBase: "Raleway", sans-serif;
+$ffSecondary: "Raleway", serif;
+$ffHeadings: "Raleway", serif;
+
+// style
+$fzBase: 18 !default;
+$lhBase: 22 !default;
+$fwBase: 400;
+
+// Colours
+
+$color1: #0d1b2a;
+$color2: #1b263b;
+$color3: #415a77;
+$color4: #778da9;
+$color5: #e0e1dd;
+
+// colour roles
+
+$colorBody: $color3;
+
+// Headings
+// -------------------------
+
+$headings: ".alpha", ".beta", ".gamma", ".delta";
+$headingSizes: 30, 24, 22, 18;
+$headingFamilies: $ffHeadings, $ffHeadings, $ffHeadings, $ffHeadings;
+$headingColors: inherit, inherit, inherit, inherit;
+$headingMargins: 15, 15, 10, 10;
+$headingLineHeights: 34, 30, 26, 24;
+$headingFontWeights: 300, 300, 500, 500;
+$break: (
+    xs: 480px,
+    s: 640px,
+    m: 960px,
+    l: 1200px,
+    xl: 1440px,
+);

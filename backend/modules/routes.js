@@ -6,15 +6,14 @@ const { checkToken } = require("../middleware");
 
 const routes = [
     {
-        path: "/",
+        path: "/*",
         method: "get",
-        middleware: checkToken,
+        // middleware: checkToken,
         handler(req, res) {
-            res.json({
-                success: true,
-                message: "Index page"
+            res.sendFile("frontend/dist/index.html", {
+                root: "./",
             });
-        }
+        },
     },
     {
         path: "/login",
@@ -33,28 +32,28 @@ const routes = [
 
                 if (matchingEmails && matchingPasswords) {
                     let token = jwt.sign({ email }, jwt_secret, {
-                        expiresIn: "24h" // expires in 24 hours
+                        expiresIn: "24h", // expires in 24 hours
                     });
                     // return the JWT token for the future API calls
                     return res.json({
                         success: true,
                         message: "Authentication successful!",
-                        token: token
+                        token: token,
                     });
                 } else {
                     return res.json({
                         success: false,
-                        message: "Incorrect username or password"
+                        message: "Incorrect username or password",
                     });
                 }
             }
 
             return res.json({
                 success: false,
-                message: "Authentication failed! Please check the request"
+                message: "Authentication failed! Please check the request",
             });
-        }
-    }
+        },
+    },
 ];
 
 const setupRoutes = app => {
