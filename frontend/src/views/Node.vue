@@ -1,7 +1,13 @@
 <template>
     <form class="node">
         <div v-if="!$apolloData.queries.nodes.loading" class="node__inner">
-            <text-input :state="node.title" id="title" name="title" label="Title"></text-input>
+            <text-input
+                :state="node.title"
+                id="title"
+                name="title"
+                label="Title"
+                @input="handleInput"
+            ></text-input>
             <text-input
                 :state="node.shortTitle"
                 id="shorttitle"
@@ -45,9 +51,46 @@ import TextInput from "@/components/Controls/TextInput.vue";
 })
 export default class Node extends Vue {
     public nodes = [];
+    public timeouts: { [key: string]: number } = {};
 
     public get node() {
         return this.nodes[0];
+    }
+
+    private handleInput(input: string, value: string) {
+        if (this.timeouts[input]) {
+            clearTimeout(this.timeouts[input]);
+        }
+
+        this.timeouts[input] = window.setTimeout(() => {
+            this.submitMutation(input, value);
+        }, 2500);
+    }
+
+    private submitMutation(input: string, value: string) {
+        switch (input) {
+            case "title":
+                this.submitTitleMutation(value);
+                break;
+        }
+    }
+
+    private submitTitleMutation(value: string) {
+        this.$apollo.mutate({
+            mutation: gql`
+                mutation($payload: Object!) {
+                    UPDATE_NODE(payload: $payload) {
+                        id
+                        title
+                    }
+                }
+            `,
+            variables: {
+                payload: {
+                    title: value,
+                },
+            },
+        });
     }
 }
 </script>

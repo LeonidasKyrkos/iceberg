@@ -4,6 +4,7 @@ const {
     GET_TREE,
     IS_ANCESTOR,
     CREATE_NODE,
+    UPDATE_NODE,
     MOVE_NODE,
 } = require("./cms/api.js");
 const { CREATE_USER, UPDATE_USER, DELETE_USER } = require("./user_db/api.js");
@@ -50,6 +51,15 @@ module.exports = {
                 return await CREATE_NODE({
                     parentNode: args.parent_node,
                     type: args.type,
+                });
+            } catch (err) {
+                throw Error(err);
+            }
+        },
+        async UPDATE_NODE(parent, args, context, info) {
+            try {
+                return await UPDATE_NODE({
+                    payload: args.payload,
                 });
             } catch (err) {
                 throw Error(err);

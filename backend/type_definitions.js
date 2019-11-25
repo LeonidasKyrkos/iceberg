@@ -36,6 +36,7 @@ const typeDefs = gql`
 
     type Mutation {
         CREATE_NODE(parent_node: Int!, type: Int): Node
+        UPDATE_NODE(payload: Object): Node
         MOVE_NODE(nodeId: Int!, newParentId: Int!): Node
         CREATE_USER(email: String!, password: String!): User
     }
