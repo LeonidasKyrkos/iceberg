@@ -2,6 +2,12 @@
     <form class="node">
         <div v-if="!$apolloData.queries.nodes.loading" class="node__inner">
             <text-input :state="node.title" id="title" name="title" label="Title"></text-input>
+            <text-input
+                :state="node.shortTitle"
+                id="shorttitle"
+                name="shorttitle"
+                label="Short title"
+            ></text-input>
         </div>
     </form>
 </template>

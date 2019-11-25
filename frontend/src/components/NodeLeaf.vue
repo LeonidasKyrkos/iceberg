@@ -6,7 +6,10 @@
                 <chevron direction="down"></chevron>
             </button>
         </div>
-        <node-tree v-if="leaf.children.length && open" :node-tree="leaf.children"></node-tree>
+        <node-tree
+            v-if="leaf.children.length && (open || parseInt($route.params.id, 10) === leaf.id)"
+            :node-tree="leaf.children"
+        ></node-tree>
     </div>
 </template>
 
@@ -36,8 +39,12 @@ import NodeTree from "@/components/NodeTree.vue";
                     child: parseInt(this.$route.params.id, 10),
                 };
             },
-            watchLoading(isLoading) {
-                this.$nextTick(this.handleOpenState);
+            update({ isAncestor }) {
+                if (isAncestor) {
+                    this.$nextTick(this.handleOpenState);
+
+                    return isAncestor;
+                }
             },
         },
     },

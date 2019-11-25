@@ -27,6 +27,8 @@ $module: "content";
 
 .#{$module} {
     padding: em(24);
+    width: calc(100% - #{em($navWidth)});
+    background-color: lighten($color5, 5%);
 
     &__wrapper {
         display: flex;
@@ -34,9 +36,9 @@ $module: "content";
     }
 
     &__nav-wrap {
-        width: em(250);
+        width: em($navWidth);
         height: 100%;
-        background-color: $color3;
+        background-color: $color1;
         color: white;
     }
 }

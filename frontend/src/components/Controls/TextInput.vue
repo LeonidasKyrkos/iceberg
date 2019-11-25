@@ -109,7 +109,7 @@ export default {
 $module: "text-input";
 
 .#{$module} {
-    margin-bottom: em(16);
+    margin-bottom: em(24);
     position: relative;
 
     &__inner {
@@ -133,7 +133,7 @@ $module: "text-input";
     &__input {
         $fz: 18;
         font-size: rem($fz);
-        background-color: lighten($color5, 10%);
+        background-color: white;
         padding: em(15, $fz) em(10, $fz) em(13, $fz) em(15, $fz);
         line-height: (28 / $fz);
         width: 100%;
