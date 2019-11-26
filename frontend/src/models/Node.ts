@@ -1,7 +1,7 @@
 export interface INode {
-    id: number;
-    title: string;
-    shortTitle: string;
-    type: string;
-    parent_node: string;
+    readonly id?: number;
+    title?: string;
+    short_title?: string;
+    type?: number;
+    readonly parent_node?: string;
 }

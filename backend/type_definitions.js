@@ -16,12 +16,14 @@ const typeDefs = gql`
         parent_node: Int
         type: Int
         title: String
-        shortTitle: String
+        short_title: String
     }
 
-    type NodeInput {
-        parent_node: Int
+    input NodeInput {
+        id: Int
         type: Int
+        title: String
+        short_title: String
     }
 
     # The "Query" type is special: it lists all of the available queries that
@@ -36,7 +38,7 @@ const typeDefs = gql`
 
     type Mutation {
         CREATE_NODE(parent_node: Int!, type: Int): Node
-        UPDATE_NODE(payload: Object): Node
+        UPDATE_NODE(payload: NodeInput): Node
         MOVE_NODE(nodeId: Int!, newParentId: Int!): Node
         CREATE_USER(email: String!, password: String!): User
     }

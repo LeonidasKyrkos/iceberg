@@ -1,22 +1,23 @@
 const { query } = require("../../database.js");
+const GET_NODES = require("../actions/GET_NODES.js");
 
-module.exports = async payload => {
+module.exports = async ({ payload }) => {
     const cols = Object.keys(payload)
-        .map(col => `${col}=${payload[col]}`)
         .filter(
             item => item !== "parent_node" && item !== "sort" && item !== "id"
-        );
+        )
+        .map(col => {
+            if (typeof payload[col] !== "string") {
+                return `${col}=${payload[col]}`;
+            }
 
-    console.log(cols, payload.id);
-
-    return;
+            return `${col}='${payload[col]}'`;
+        });
 
     await query(`UPDATE nodes SET ${cols.join(", ")} WHERE id=${payload.id}`);
 
     const nodeArr = await GET_NODES({ ids: payload.id });
     const node = nodeArr[0];
-
-    await recursivelyUpdateTree(node.id, node.parent_node);
 
     return node;
 };

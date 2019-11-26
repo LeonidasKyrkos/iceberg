@@ -6,13 +6,14 @@
                 id="title"
                 name="title"
                 label="Title"
-                @input="handleInput"
+                @input="$value => handleInput('title', $value)"
             ></text-input>
             <text-input
-                :state="node.shortTitle"
+                :state="node.short_title"
                 id="shorttitle"
                 name="shorttitle"
                 label="Short title"
+                @input="$value => handleInput('short_title', $value)"
             ></text-input>
         </div>
     </form>
@@ -21,6 +22,7 @@
 <script lang='ts'>
 import { Component, Vue } from "vue-property-decorator";
 import gql from "graphql-tag";
+import { INode } from "@/models/Node";
 
 import TextInput from "@/components/Controls/TextInput.vue";
 
@@ -37,7 +39,7 @@ import TextInput from "@/components/Controls/TextInput.vue";
                         type
                         parent_node
                         title
-                        shortTitle
+                        short_title
                     }
                 }
             `,
@@ -50,14 +52,23 @@ import TextInput from "@/components/Controls/TextInput.vue";
     },
 })
 export default class Node extends Vue {
-    public nodes = [];
+    public nodes: INode[] = [];
     public timeouts: { [key: string]: number } = {};
 
-    public get node() {
+    public get node(): INode {
         return this.nodes[0];
     }
 
-    private handleInput(input: string, value: string) {
+    private handleInput<I extends keyof INode>(input: I, value: string): void {
+        switch (input) {
+            case "title":
+                this.nodes[0].title = value;
+                break;
+            case "short_title":
+                this.nodes[0].short_title = value;
+                break;
+        }
+
         if (this.timeouts[input]) {
             clearTimeout(this.timeouts[input]);
         }
@@ -67,28 +78,28 @@ export default class Node extends Vue {
         }, 2500);
     }
 
-    private submitMutation(input: string, value: string) {
-        switch (input) {
-            case "title":
-                this.submitTitleMutation(value);
-                break;
-        }
-    }
+    private submitMutation(input: string, value: any) {
+        const payload: {
+            [key: string]: any;
+        } = {
+            id: this.node.id,
+        };
 
-    private submitTitleMutation(value: string) {
+        payload[input] = value;
+
         this.$apollo.mutate({
             mutation: gql`
-                mutation($payload: Object!) {
+                mutation($payload: NodeInput!) {
                     UPDATE_NODE(payload: $payload) {
                         id
                         title
+                        short_title
+                        type
                     }
                 }
             `,
             variables: {
-                payload: {
-                    title: value,
-                },
+                payload,
             },
         });
     }

@@ -1,7 +1,10 @@
 <template>
     <div>
         <div class="leaf__title-wrap">
-            <router-link :to="`/content/${leaf.id}`" class="leaf__title">{{ leaf.title }}</router-link>
+            <router-link
+                :to="`/content/${leaf.id}`"
+                class="leaf__title"
+            >{{ leaf.short_title ? leaf.short_title : leaf.title }}</router-link>
             <button v-if="leaf.children.length" class="leaf__toggle" @click="open = !open">
                 <chevron direction="down"></chevron>
             </button>
