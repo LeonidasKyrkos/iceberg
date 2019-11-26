@@ -15,11 +15,14 @@ import NodeTree from "@/components/NodeTree.vue";
         NodeTree,
     },
     apollo: {
-        NODE_TREE: gql`
-            query {
-                NODE_TREE @client
-            }
-        `,
+        NODE_TREE: {
+            query: gql`
+                query {
+                    NODE_TREE
+                }
+            `,
+            pollInterval: 3000,
+        },
     },
 })
 export default class TreeNavigation extends Vue {

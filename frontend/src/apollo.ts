@@ -16,4 +16,10 @@ export const apolloClient = new ApolloClient({
     link: httpLink,
     cache,
     resolvers: {},
+    defaultOptions: {
+        query: {
+            fetchPolicy: "cache-first",
+            errorPolicy: "all",
+        },
+    },
 });

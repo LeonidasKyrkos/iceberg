@@ -5,6 +5,7 @@ const GET_NODES = require("./actions/GET_NODES.js");
 const GET_SIBLINGS = require("./actions/GET_SIBLINGS.js");
 const GET_TREE = require("./actions/GET_TREE.js");
 const IS_ANCESTOR = require("./actions/IS_ANCESTOR.js");
+const GET_TYPES = require("./actions/GET_TYPES.js");
 
 module.exports = {
     CREATE_NODE,
@@ -12,6 +13,7 @@ module.exports = {
     GET_NODES,
     GET_SIBLINGS,
     GET_TREE,
+    GET_TYPES,
     IS_ANCESTOR,
     MOVE_NODE,
 };

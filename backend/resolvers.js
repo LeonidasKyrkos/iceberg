@@ -2,6 +2,7 @@ const {
     GET_NODES,
     GET_SIBLINGS,
     GET_TREE,
+    GET_TYPES,
     IS_ANCESTOR,
     CREATE_NODE,
     UPDATE_NODE,
@@ -23,6 +24,13 @@ module.exports = {
         async siblings(parent, args, context, info) {
             try {
                 return await GET_SIBLINGS({ id: args.id });
+            } catch (err) {
+                throw Error(err);
+            }
+        },
+        async types(parent, args) {
+            try {
+                return await GET_TYPES();
             } catch (err) {
                 throw Error(err);
             }
